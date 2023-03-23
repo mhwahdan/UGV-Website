@@ -13,10 +13,10 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 
 //Created modules
 import { HomePageModule } from 'src/app/home-page/home-page.module';
-
-
+import { VehicleControlModule } from 'src/app/vehicle-control/vehicle-control.module';
 // Router components
 import { HomePageComponent } from 'src/app/home-page/home-page/home-page.component';
+import { VehicleControlComponent } from 'src/app/vehicle-control/vehicle-control/vehicle-control.component';
 
 @NgModule({
   declarations: [
@@ -28,10 +28,12 @@ import { HomePageComponent } from 'src/app/home-page/home-page/home-page.compone
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     HomePageModule,
+    VehicleControlModule,
     FormsModule,
     ApiAuthorizationModule,
     RouterModule.forRoot([
       { path: '', component: HomePageComponent, pathMatch: 'full' },
+      { path: 'control', component: VehicleControlComponent, pathMatch: 'full', canActivate: [AuthorizeGuard] }
       //{ path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
     ])
   ],

@@ -1,0 +1,42 @@
+
+<div class="container-fluid bg-dark">
+  <div class="row">
+    <div class="col-5">
+      <h1 style="text-align:center; color: white;margin-top: 1%;">UGV missions summary</h1>
+      <table class="table table-hover table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Mission id</th>
+            <th scope="col">Mission Name</th>
+            <th scope="col">Number of survivors</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mission of missions">
+          <th scope="row">{{ mission.missionId }}</th>
+          <td>{{ mission.missionName }}</td>
+          <td>{{ mission.noOfSurvivors }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <div class="col-6" style="padding-top: 4%;">
+      <google-map 
+                  width="100%"
+                  [center]="ugvLocation"
+                  [options]="options">
+        <map-marker *ngFor="let markerPosition of markerPositions"
+                    [position]="markerPosition"
+                    [options]="markerOptions"></map-marker>
+
+        <map-marker [position]="ugvLocation"
+                    [options]="vehiclemarkerOptions"></map-marker>
+      </google-map>
+    </div>
+  </div>
+  <div class="container">
+    <h1 style="text-align:center; color: white;padding-top: 2%;">View Live camera stream</h1>
+    <app-live-stream></app-live-stream>
+  </div>
+</div>
