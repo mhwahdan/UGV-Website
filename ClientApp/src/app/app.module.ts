@@ -34,7 +34,6 @@ import { VehicleControlComponent } from 'src/app/vehicle-control/vehicle-control
     RouterModule.forRoot([
       { path: '', component: HomePageComponent, pathMatch: 'full' },
       { path: 'control', component: VehicleControlComponent, pathMatch: 'full', canActivate: [AuthorizeGuard] }
-      //{ path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [
