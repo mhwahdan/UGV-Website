@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { GoogleMap } from '@angular/google-maps';
 
 @Component({
   selector: 'app-vehicle-control',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vehicle-control.component.css']
 })
 export class VehicleControlComponent {
-
+  @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
   zoom = 5;
   public ugvLocation: google.maps.LatLngLiteral = { lat: 30.1055, lng: 31.3854 };
   options: google.maps.MapOptions = {
@@ -41,6 +42,30 @@ export class VehicleControlComponent {
     missionName: "mission 1",
     noOfSurvivors: 5
   }]
+
   ngOnInit() {
+    const directionsService = new google.maps.DirectionsService();
+
+    const request: google.maps.DirectionsRequest = {
+      origin: this.ugvLocation,
+      destination: this.markerPositions[0],
+      travelMode: google.maps.TravelMode.DRIVING,
+    };
+
+    directionsService.route(request, (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        const directionsRenderer = new google.maps.DirectionsRenderer({
+          map: this.map.googleMap,
+          suppressMarkers: true
+        });
+        directionsRenderer.setDirections(result);
+      }
+    });
   }
+
+
+  calculateAndDisplayRoute() {
+
+  }
+
 }
