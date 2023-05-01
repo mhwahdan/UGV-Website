@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using UGV.Models;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UGV.Controllers
 {
@@ -10,14 +13,14 @@ namespace UGV.Controllers
     public class UGVController : ControllerBase
     {
         protected UgvdbContext _context;
-        
-        public UGVController(UgvdbContext context)
+        private readonly HttpClient _httpClient;
+        public UGVController(UgvdbContext context, IHttpClientFactory httpClientFactory)
         {
             _context = context;
+            _httpClient = httpClientFactory.CreateClient();
         }
 
-        [HttpPost("api/contactus/")]
-        [AllowAnonymous]
+        [HttpPost("api/ugv/submitContact/")]
         public IActionResult SubmitContactForm(JObject formData)
         {
 #pragma warning disable CS8604, CS8600 // Possible null reference argument.
@@ -29,6 +32,19 @@ namespace UGV.Controllers
             /* Save the user query to the database */
             
             return Ok();
+        }
+
+        [HttpGet("api/ugv/getStream/{vehicleId}")]
+        public async Task<IActionResult> proxy(string vehicleId)
+        {
+            // Fetch the HTTP content using HttpClient
+            var httpContent = await _httpClient.GetStringAsync("http://http://172.20.10.10:8000/index.html");
+
+            // Create an HTTPS content by replacing the URLs with HTTPS URLs
+            var httpsContent = httpContent.Replace("http://", "https://");
+
+            // Return the HTTPS content
+            return Content(httpsContent, "text/html");
         }
 
         [HttpGet("api/ugv/getMissions/{vehicleId}")]
@@ -70,6 +86,8 @@ namespace UGV.Controllers
 
             return Ok();
         }
+
+
 
         [HttpGet("api/ugv/getLocation/{vehicleId}")]
         [Authorize]

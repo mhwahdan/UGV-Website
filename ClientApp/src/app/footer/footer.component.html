@@ -7,22 +7,25 @@
 
       <!-- Left contact page -->
 
-      <form id="contact-form" class="form-horizontal" role="form">
+      <form
+            (ngSubmit)="onSubmit()"
+            #myForm="ngForm"
+            id="contact-form" class="form-horizontal" role="form">
 
         <div class="form-group">
           <div class="col-sm-12">
-            <input type="text" class="form-control" id="name" placeholder="NAME" name="name" value="" required>
+            <input type="text" class="form-control" id="name" placeholder="NAME" [(ngModel)]="name" name="name" value="" required>
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-sm-12">
-            <input type="email" class="form-control" id="email" placeholder="EMAIL" name="email" value="" required>
+            <input type="email" class="form-control" id="email" placeholder="EMAIL" [(ngModel)]="email" name="email" value="" required>
           </div>
         </div>
 
         <div class="form-group">
-          <textarea class="form-control" rows="10" placeholder="MESSAGE" name="message" required></textarea>
+          <textarea class="form-control" rows="10" placeholder="MESSAGE" [(ngModel)]="message" name="message" required></textarea>
         </div>
 
         <button class="btn orange-btn send-button" id="submit" type="submit" value="SEND">

@@ -12,6 +12,8 @@ table{
   width: 25%;
   height: 10%;
   font-size: x-large;
+  margin-left:15px;
+  margin-bottom:5px;
 }
 
 .orange-btn {

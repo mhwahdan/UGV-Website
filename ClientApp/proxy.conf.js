@@ -12,11 +12,11 @@ const PROXY_CONFIG = [
       "/connect",
       "/ApplyDatabaseMigrations",
       // UGV
-      "/api/contactus/",
+      "/api/ugv/submitContact/",
       "/api/ugv/getMissions/",
       "/api/ugv/addMissions/",
       "/api/ugv/getLocation/",
-
+      "/api/ugv/getStream/",
       "/_framework"
    ],
     target: target,

@@ -2,21 +2,14 @@
 <div class="container-fluid bg-dark">
   <div class="row">
     <div class="col-6">
-      <h1 style="text-align:center; color: white;float:left;display:inline;">View Live camera stream</h1>
+      <h3 style="text-align:center; color: white;float:left;display:inline;">View Live camera stream</h3>
       <button class="view-summary-btn orange-btn" data-bs-toggle="modal" data-bs-target="#summaryModal">Summary</button>
+      <button class="view-summary-btn orange-btn" (click)="pinLocation()">Pin location</button>
       <app-live-stream></app-live-stream>
     </div>
     <div class="col-6" style="padding-top: 4%;">
-      <google-map width="100%"
-                  [center]="ugvLocation"
-                  [options]="options">
-        <map-marker *ngFor="let markerPosition of markerPositions"
-                    [position]="markerPosition"
-                    [options]="markerOptions"></map-marker>
-
-        <map-marker [position]="ugvLocation"
-                    [options]="vehiclemarkerOptions"></map-marker>
-      </google-map>
+      <div #mapContainer style="height: 500px;"></div>
+      
     </div>
   </div>
 
